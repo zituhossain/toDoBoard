@@ -1,4 +1,3 @@
-// src/App.js
 import { useEffect, useState } from "react";
 import Column from "./Column";
 
@@ -11,13 +10,19 @@ const Todo = () => {
   const [id, setId] = useState(1);
 
   const handleAdd = (item) => {
-    setItems([...items, { ...item, id: id, status: "New" }]);
+    setItems([...items, { ...item, id: id, status: "New", dueDate: null }]);
     setId(id + 1);
   };
 
   const handleMove = (itemId, status) => {
     setItems(
       items.map((item) => (item.id === itemId ? { ...item, status } : item))
+    );
+  };
+
+  const handleDueDate = (itemId, dueDate) => {
+    setItems(
+      items.map((item) => (item.id === itemId ? { ...item, dueDate } : item))
     );
   };
 
@@ -47,6 +52,7 @@ const Todo = () => {
           items={filterItemsByStatus("Ongoing")}
           onAdd={() => {}}
           onMove={handleMove}
+          onSetDueDate={handleDueDate}
         />
         <Column
           title="Done"

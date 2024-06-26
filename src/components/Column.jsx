@@ -3,7 +3,7 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
 
-const Column = ({ title, items, onAdd, onMove }) => {
+const Column = ({ title, items, onAdd, onMove, onSetDueDate }) => {
   const [newItem, setNewItem] = useState({ title: "", description: "" });
 
   const handleAdd = () => {
@@ -44,7 +44,12 @@ const Column = ({ title, items, onAdd, onMove }) => {
         </div>
       )}
       {items.map((item) => (
-        <TodoItem key={item.id} item={item} onMove={onMove} />
+        <TodoItem
+          key={item.id}
+          item={item}
+          onMove={onMove}
+          onSetDueDate={onSetDueDate}
+        />
       ))}
     </div>
   );
