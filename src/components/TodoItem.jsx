@@ -3,23 +3,40 @@ import { useState } from "react";
 import ContextMenu from "./ContextMenu";
 
 const TodoItem = ({ item, onMove }) => {
-  const [showContextMent, setShowContextMent] = useState(false);
+  const [showContextMenu, setShowContextMenu] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleRightClick = (e) => {
     e.preventDefault();
-    setShowContextMent(true);
     setPosition({ x: e.pageX, y: e.pageY });
+    setShowContextMenu(true);
   };
 
   const handleMove = (status) => {
+    setShowContextMenu(false);
     onMove(item.id, status);
-    setShowContextMent(false);
+  };
+
+  const handleCloseContextMenu = () => {
+    setShowContextMenu(false);
+  };
+
+  const getStatusLabelColor = (status) => {
+    switch (status) {
+      case "New":
+        return "bg-blue-500";
+      case "Ongoing":
+        return "bg-orange-500";
+      case "Done":
+        return "bg-green-500";
+      default:
+        return "";
+    }
   };
 
   return (
     <div
-      className={`p-4 mb-2 rounded-lg shadow ${
+      className={`relative p-4 mb-2 rounded-lg shadow ${
         item.status === "New"
           ? "bg-blue-100"
           : item.status === "Ongoing"
@@ -28,12 +45,22 @@ const TodoItem = ({ item, onMove }) => {
       }`}
       onContextMenu={handleRightClick}
     >
+      <div
+        className={`absolute top-2 right-2 px-2 py-1 rounded text-white ${getStatusLabelColor(
+          item.status
+        )}`}
+      >
+        {item.status}
+      </div>
       <h4 className="font-bold">{item.title}</h4>
       <p>{item.description}</p>
-
-      {showContextMent && (
-        <div style={{ left: position.x, top: position.y }} className="fixed">
-          <ContextMenu onMove={handleMove} />{" "}
+      {showContextMenu && (
+        <div style={{ top: position.y, left: position.x }} className="">
+          <ContextMenu
+            currentStatus={item.status}
+            onMove={handleMove}
+            onClose={handleCloseContextMenu}
+          />
         </div>
       )}
     </div>

@@ -22,25 +22,31 @@ const Todo = () => {
   };
 
   return (
-    <div className="flex justify-between p-4">
-      <Column
-        title="New"
-        items={filterItemsByStatus("New")}
-        onAdd={handleAdd}
-        onMove={handleMove}
-      />
-      <Column
-        title="Ongoing"
-        items={filterItemsByStatus("Ongoing")}
-        onAdd={() => {}}
-        onMove={handleMove}
-      />
-      <Column
-        title="Done"
-        items={filterItemsByStatus("Done")}
-        onAdd={() => {}}
-        onMove={handleMove}
-      />
+    <div className="min-h-screen min-w[400px] bg-black p-4">
+      <h1 className="text-3xl font-bold text-center text-white mb-4">
+        To-do Board
+      </h1>
+
+      <div className="flex justify-between gap-4">
+        <Column
+          title="New"
+          items={filterItemsByStatus("New")}
+          onAdd={handleAdd}
+          onMove={handleMove}
+        />
+        <Column
+          title="Ongoing"
+          items={filterItemsByStatus("Ongoing")}
+          onAdd={() => {}}
+          onMove={handleMove}
+        />
+        <Column
+          title="Done"
+          items={filterItemsByStatus("Done")}
+          onAdd={() => {}}
+          onMove={handleMove}
+        />
+      </div>
     </div>
   );
 };
