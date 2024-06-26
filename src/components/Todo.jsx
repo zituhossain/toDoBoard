@@ -1,9 +1,13 @@
 // src/App.js
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Column from "./Column";
 
 const Todo = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(
+    localStorage.getItem("items")
+      ? JSON.parse(localStorage.getItem("items"))
+      : []
+  );
   const [id, setId] = useState(1);
 
   const handleAdd = (item) => {
@@ -20,6 +24,10 @@ const Todo = () => {
   const filterItemsByStatus = (status) => {
     return items.filter((item) => item.status === status);
   };
+
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   return (
     <div className="min-h-screen min-w[400px] bg-black p-4">

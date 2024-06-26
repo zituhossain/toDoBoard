@@ -46,7 +46,7 @@ const TodoItem = ({ item, onMove }) => {
       onContextMenu={handleRightClick}
     >
       <div
-        className={`absolute top-2 right-2 px-2 py-1 rounded text-white ${getStatusLabelColor(
+        className={`absolute top-2 right-2 px-1 py-1 rounded text-white text-sm ${getStatusLabelColor(
           item.status
         )}`}
       >
