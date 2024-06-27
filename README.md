@@ -26,6 +26,7 @@ Ensure you have the following installed on your local machine:
 1. Clone the repository:
 
 git clone https://github.com/zituhossain/toDoBoard.git
+
 cd toDoBoard
 
 npm install
