@@ -26,6 +26,10 @@ const Todo = () => {
     );
   };
 
+  const handleDelete = (itemId) => {
+    setItems(items.filter((item) => item.id !== itemId));
+  };
+
   const filterItemsByStatus = (status) => {
     return items.filter((item) => item.status === status);
   };
@@ -36,8 +40,8 @@ const Todo = () => {
 
   return (
     <div className="min-h-screen min-w[400px] bg-blue-950 p-4">
-      <h1 className="text-3xl font-bold text-center text-white mb-4">
-        To-do Board
+      <h1 className="text-3xl font-bold text-center text-white mb-8">
+        Todo List Application
       </h1>
 
       <div className="flex flex-col md:flex-row justify-between gap-4">
@@ -46,6 +50,7 @@ const Todo = () => {
           items={filterItemsByStatus("New")}
           onAdd={handleAdd}
           onMove={handleMove}
+          handleDelete={handleDelete}
         />
         <Column
           title="Ongoing"

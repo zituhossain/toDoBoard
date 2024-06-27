@@ -3,7 +3,14 @@
 import { useState } from "react";
 import TodoItem from "./TodoItem";
 
-const Column = ({ title, items, onAdd, onMove, onSetDueDate }) => {
+const Column = ({
+  title,
+  items,
+  onAdd,
+  onMove,
+  onSetDueDate,
+  handleDelete,
+}) => {
   const [newItem, setNewItem] = useState({ title: "", description: "" });
 
   const handleAdd = () => {
@@ -24,16 +31,16 @@ const Column = ({ title, items, onAdd, onMove, onSetDueDate }) => {
             placeholder="Title"
             value={newItem.title}
             onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
-            className="block w-full mb-2 p-2 border rounded"
+            className="block w-full mb-2 p-2 border rounded-lg"
           />
-          <input
-            type="text"
+          <textarea
             placeholder="Description"
             value={newItem.description}
             onChange={(e) =>
               setNewItem({ ...newItem, description: e.target.value })
             }
-            className="block w-full mb-2 p-2 border rounded"
+            className="block w-full mb-2 p-2 border rounded-lg resize-none overflow-hidden"
+            rows={4} // Adjust the number of rows as needed
           />
           <button
             onClick={handleAdd}
@@ -49,6 +56,7 @@ const Column = ({ title, items, onAdd, onMove, onSetDueDate }) => {
           item={item}
           onMove={onMove}
           onSetDueDate={onSetDueDate}
+          handleDelete={handleDelete}
         />
       ))}
     </div>

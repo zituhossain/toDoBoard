@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import Datetime from "react-datetime";
 import ContextMenu from "./ContextMenu";
 import "react-datetime/css/react-datetime.css";
+import deleteIcon from "../assets/delete.png";
 
-const TodoItem = ({ item, onMove, onSetDueDate }) => {
+const TodoItem = ({ item, onMove, onSetDueDate, handleDelete }) => {
   const [showContextMenu, setShowContextMenu] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [dueDate, setDueDate] = useState(item.dueDate || null);
@@ -90,11 +91,22 @@ const TodoItem = ({ item, onMove, onSetDueDate }) => {
       )}
 
       <h4 className="font-bold text-center mt-4">{item.title}</h4>
-      <p>{item.description}</p>
+      <p className="overflow-hidden text-ellipsis break-words max-h-24">
+        {item.description}
+      </p>
+
+      {item.status === "New" && (
+        <img
+          onClick={() => handleDelete(item.id)}
+          src={deleteIcon}
+          alt=""
+          className="w-4 h-4 cursor-pointer m-auto mt-2"
+        />
+      )}
 
       {item.status === "Ongoing" && (
-        <div className="mt-2">
-          <p className="font-semibold">Due Date:</p>
+        <div className="flex mt-2">
+          <p className="font-semibold flex justify-start mr-2">Due Date:</p>
           <Datetime value={dueDate} onChange={handleDateChange} />
         </div>
       )}
