@@ -31,15 +31,24 @@ const TodoItem = ({ item, onMove, onSetDueDate }) => {
   };
 
   useEffect(() => {
-    if (
-      item.status === "Ongoing" &&
-      dueDate &&
-      new Date() > new Date(dueDate)
-    ) {
-      setIsOverdue(true);
-    } else {
-      setIsOverdue(false);
-    }
+    const checkOverdue = () => {
+      if (
+        item.status === "Ongoing" &&
+        dueDate &&
+        new Date() > new Date(dueDate)
+      ) {
+        setIsOverdue(true);
+      } else {
+        setIsOverdue(false);
+      }
+    };
+
+    checkOverdue();
+
+    const interval = setInterval(() => {
+      checkOverdue();
+    }, 1000);
+    return () => clearInterval(interval);
   }, [dueDate, item]);
 
   const getStatusLabelColor = (status) => {
@@ -75,17 +84,17 @@ const TodoItem = ({ item, onMove, onSetDueDate }) => {
       </div>
 
       {isOverdue && (
-        <div className="absolute top-2 left-2 px-2 py-1 bg-red-500 text-white rounded">
+        <div className="absolute top-2 left-2 px-2 py-1 bg-red-500 text-white rounded text-sm">
           Overdue
         </div>
       )}
 
-      <h4 className="font-bold">{item.title}</h4>
+      <h4 className="font-bold text-center mt-4">{item.title}</h4>
       <p>{item.description}</p>
 
       {item.status === "Ongoing" && (
         <div className="mt-2">
-          <p>Due Date:</p>
+          <p className="font-semibold">Due Date:</p>
           <Datetime value={dueDate} onChange={handleDateChange} />
         </div>
       )}

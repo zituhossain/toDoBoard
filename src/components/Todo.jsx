@@ -35,12 +35,12 @@ const Todo = () => {
   }, [items]);
 
   return (
-    <div className="min-h-screen min-w[400px] bg-black p-4">
+    <div className="min-h-screen min-w[400px] bg-blue-950 p-4">
       <h1 className="text-3xl font-bold text-center text-white mb-4">
         To-do Board
       </h1>
 
-      <div className="flex justify-between gap-4">
+      <div className="flex flex-col md:flex-row justify-between gap-4">
         <Column
           title="New"
           items={filterItemsByStatus("New")}

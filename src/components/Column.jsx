@@ -15,7 +15,7 @@ const Column = ({ title, items, onAdd, onMove, onSetDueDate }) => {
   };
 
   return (
-    <div className="w-1/3 bg-gray-200 p-4 rounded-xl shadow-lg">
+    <div className="w-full md:w-1/3 bg-gray-200 p-4 rounded-xl shadow-lg">
       <h2 className="text-xl font-bold mb-4">{title}</h2>
       {title === "New" && (
         <div className="mb-4">
